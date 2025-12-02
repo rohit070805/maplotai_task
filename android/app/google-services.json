@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1022220485820",
+    "project_id": "maplotai-task-9806e",
+    "storage_bucket": "maplotai-task-9806e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022220485820:android:fd9dcf2b4c88421df0bcb9",
+        "android_client_info": {
+          "package_name": "com.example.maplotai_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrkYX3Gj_npW6avQqbDAzDrWcPBeq9IAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
