@@ -121,14 +121,13 @@ class Components{
   //   );
   // }
 
-  Widget normaltextFeild(BuildContext context, TextEditingController controller, String label, ) {
+  // Update this function inside your Components class
+  Widget normaltextFeild(BuildContext context, TextEditingController controller, String label, {bool readOnly = false}) {
     return TextField(
       style: const TextStyle(fontSize: 18),
       controller: controller,
-
-      readOnly: true,
+      readOnly: readOnly, // Use the parameter here
       decoration: InputDecoration(
-
         alignLabelWithHint: true,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -141,7 +140,6 @@ class Components{
             borderSide: const BorderSide(color: Colors.grey, width: 1.5)),
         labelText: label,
         labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
-
       ),
     );
   }
