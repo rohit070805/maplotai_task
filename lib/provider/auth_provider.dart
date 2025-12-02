@@ -12,25 +12,24 @@ class Authprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Sign Up Function (Saves Name to Auth Profile)
+
   Future<String?> signUp(String email, String password, String name) async {
     try {
       setLoading(true);
 
-      // 1. Create the User
       UserCredential cred = await _auth.createUserWithEmailAndPassword(
           email: email,
           password: password
       );
 
-      // 2. Update the "Display Name" in Firebase Auth directly
+
       if (cred.user != null) {
         await cred.user!.updateDisplayName(name);
-        await cred.user!.reload(); // Refresh the user to see the change
+        await cred.user!.reload();
       }
 
       setLoading(false);
-      return null; // Success
+      return null;
     } on FirebaseAuthException catch (e) {
       setLoading(false);
       return e.message ?? "An error occurred during sign up.";
@@ -40,7 +39,7 @@ class Authprovider extends ChangeNotifier {
     }
   }
 
-  // Sign In Function
+
   Future<String?> signIn(String email, String password) async {
     try {
       setLoading(true);
@@ -56,7 +55,7 @@ class Authprovider extends ChangeNotifier {
     }
   }
 
-  // Sign Out
+
   Future<void> signOut() async {
     await _auth.signOut();
     notifyListeners();

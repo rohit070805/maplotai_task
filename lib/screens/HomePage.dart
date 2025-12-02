@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 
 import '../provider/auth_provider.dart';
 import '../services/student_services.dart';
-import '../models/student_model.dart'; // Import Model
+import '../models/student_model.dart';
 import 'LoginScreen.dart';
 import '../utils/colors.dart';
 import '../utils/components.dart';
+import 'StudentDetailsPage.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -19,7 +20,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   User? user = FirebaseAuth.instance.currentUser;
   TextEditingController searchController = TextEditingController();
-  // Variable to store the list of students
+
   late Future<List<Student>> _studentsFuture;
 
   @override
@@ -28,8 +29,7 @@ class _HomepageState extends State<Homepage> {
     _refreshStudents();
   }
 
-  // Function to refresh the list (useful after adding a student)
-  // Update this function
+
   void _refreshStudents({String? query}) {
     setState(() {
       _studentsFuture = StudentService().getAllStudents(query: query);
@@ -49,7 +49,7 @@ class _HomepageState extends State<Homepage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- Header Section (Name & Logout) ---
+
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
               child: Row(
@@ -94,7 +94,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
 
-            // --- Search Bar (Visual Only for now) ---
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Container(
@@ -112,32 +112,31 @@ class _HomepageState extends State<Homepage> {
                       )
                     ],
                   ),
-                // ... inside the Container decoration ...
+
                 child: TextField(
-                  controller: searchController, // Make sure you have this controller defined at top
+                  controller: searchController,
                   onChanged: (value) {
-                    // Call the search function whenever text changes
+
                     _refreshStudents(query: value);
                   },
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     border: InputBorder.none,
                     hintText: "Search by Name or ID",
-                    // Clear button if text is not empty
+
                     suffixIcon: searchController.text.isNotEmpty
                         ? IconButton(
                       icon: const Icon(Icons.clear, color: Colors.grey),
                       onPressed: () {
                         searchController.clear();
-                        _refreshStudents(query: ""); // Reset list
-                      },
+                        _refreshStudents(query: ""); }
                     )
                         : Icon(Icons.search, color: AppColors.appColor),
                   ),
                 ),)
             ),
 
-            // --- Student List Header ---
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Row(
@@ -150,13 +149,13 @@ class _HomepageState extends State<Homepage> {
                   ),
                   IconButton(
                     icon: Icon(Icons.refresh, color: AppColors.appColor, size: 30),
-                    onPressed: _refreshStudents, // Click to reload list
+                    onPressed: _refreshStudents,
                   )
                 ],
               ),
             ),
 
-            // --- REAL DATA LIST ---
+
             Expanded(
               child: FutureBuilder<List<Student>>(
                 future: _studentsFuture,
@@ -176,11 +175,22 @@ class _HomepageState extends State<Homepage> {
                     itemCount: students.length,
                     itemBuilder: (context, index) {
                       final student = students[index];
-                      // Displaying Name and Student ID from MongoDB
+
                       return Components().StudentTile(
                           context,
                           student.name,
-                          "ID: ${student.studentId} | ${student.district}"
+                          "ID: ${student.studentId} | ${student.district}",
+                          onTap: () async {
+
+                            final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Studentdetailspage(student: student)
+                                )
+                            );
+
+
+                          }
                       );
                     },
                   );

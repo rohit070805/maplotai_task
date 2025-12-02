@@ -20,9 +20,9 @@ class _BottomNavigateState extends State<BottomNavigate> {
 
   ];
   final List<Widget> _navigationitems = [
-    const Icon(Icons.smart_toy_outlined,color: Colors.white,size: 25,),
-     const Icon(Icons.home,color: Colors.white,size: 25),
-     const Icon(Icons.person,color: Colors.white,size: 25)
+    const Icon(Icons.fact_check_outlined,color: Colors.white,size: 25,),
+     const Icon(Icons.home_filled,color: Colors.white,size: 25),
+     const Icon(Icons.person_add_alt_1_outlined,color: Colors.white,size: 25)
   ];
   @override
   Widget build(BuildContext context) {

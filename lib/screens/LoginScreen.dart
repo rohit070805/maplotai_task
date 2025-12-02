@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // 1. Import Provider
+import 'package:provider/provider.dart';
 import '../provider/auth_provider.dart';
 
 import '../utils/colors.dart';
 import 'SignUpScreen.dart';
-import 'BottomNavigate.dart'; // 3. Import Dashboard to navigate after login
+import 'BottomNavigate.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -20,7 +20,7 @@ class _LoginscreenState extends State<Loginscreen> {
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context);
-    // 4. Access the provider to check loading state
+
     final authProvider = Provider.of<Authprovider>(context);
 
     return Container(
@@ -114,7 +114,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           height: 60,
                           child: ElevatedButton(
                               onPressed: () async {
-                                // 5. Input Validation
+
                                 String email = emailController.text.trim();
                                 String password = passController.text.trim();
 
@@ -126,12 +126,12 @@ class _LoginscreenState extends State<Loginscreen> {
                                   return;
                                 }
 
-                                // 6. Call Sign In Function
+
                                 String? error = await authProvider.signIn(
                                     email, password);
 
                                 if (error == null) {
-                                  // Success: Navigate to Dashboard
+
                                   if (context.mounted) {
                                     Navigator.pushReplacement(
                                         context,
@@ -140,7 +140,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                             const BottomNavigate()));
                                   }
                                 } else {
-                                  // Failure: Show Error Popup
+
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
@@ -152,7 +152,7 @@ class _LoginscreenState extends State<Loginscreen> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.appColor,
                               ),
-                              // 7. Show Loading Indicator or Arrow Icon
+
                               child: authProvider.isLoading
                                   ? const CircularProgressIndicator(
                                   color: Colors.white)

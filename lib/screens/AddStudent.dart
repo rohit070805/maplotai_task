@@ -22,7 +22,7 @@ class _AddstudentState extends State<Addstudent> {
   final TextEditingController _countrytController = TextEditingController();
 
   bool _isLoadingLocation = false;
-  bool _showLocationFields = false; // Controls visibility
+  bool _showLocationFields = false;
 
   Future<void> fetchLocationDetails() async {
     String pincode = _pinCodeController.text.trim();
@@ -51,7 +51,7 @@ class _AddstudentState extends State<Addstudent> {
             _districtController.text = postOfficeData['District'] ?? '';
             _stateController.text = postOfficeData['State'] ?? '';
             _countrytController.text = postOfficeData['Country'] ?? 'India';
-            _showLocationFields = true; // Show fields on success
+            _showLocationFields = true;
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -59,7 +59,7 @@ class _AddstudentState extends State<Addstudent> {
           );
         } else {
           setState(() {
-            _showLocationFields = true; // Show fields even if invalid so user can type manually
+            _showLocationFields = true;
           });
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Pincode not found. Please enter details manually."), backgroundColor: Colors.orange)
@@ -70,7 +70,7 @@ class _AddstudentState extends State<Addstudent> {
       }
     } catch (e) {
       setState(() {
-        _showLocationFields = true; // Show fields on error so user can type manually
+        _showLocationFields = true;
       });
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Error fetching location: $e"), backgroundColor: Colors.red));
@@ -138,7 +138,7 @@ class _AddstudentState extends State<Addstudent> {
                 ],
 
                 const SizedBox(height: 20),
-                // ... inside your Column ...
+
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -146,7 +146,7 @@ class _AddstudentState extends State<Addstudent> {
                             borderRadius: BorderRadius.circular(10)),
                         backgroundColor: AppColors.appColor),
                     onPressed: () async {
-                      // 1. Basic Validation
+
                       if (_nameController.text.isEmpty ||
                           _emailController.text.isEmpty ||
                           _studentIDController.text.isEmpty) {
@@ -156,12 +156,12 @@ class _AddstudentState extends State<Addstudent> {
                         return;
                       }
 
-                      // 2. Show "Saving" message
+
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Saving Student..."),
                           duration: Duration(milliseconds: 800)));
 
-                      // 3. Call the Backend
+
                       String? error = await StudentService().addStudent(
                         name: _nameController.text.trim(),
                         email: _emailController.text.trim(),
@@ -172,7 +172,7 @@ class _AddstudentState extends State<Addstudent> {
                         country: _countrytController.text.trim(),
                       );
 
-                      // 4. Handle Result
+
                       if (error == null) {
                         // Success
                         if (context.mounted) {
@@ -180,7 +180,7 @@ class _AddstudentState extends State<Addstudent> {
                               content: Text("Student Added Successfully!"),
                               backgroundColor: Colors.green));
 
-                          // Clear inputs
+
                           _nameController.clear();
                           _emailController.clear();
                           _studentIDController.clear();
@@ -193,7 +193,7 @@ class _AddstudentState extends State<Addstudent> {
                           });
                         }
                       } else {
-                        // Error
+
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(error), backgroundColor: Colors.red));

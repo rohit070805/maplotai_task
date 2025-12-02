@@ -15,10 +15,10 @@ class Student {
     required this.state,
   });
 
-  // Factory constructor to create a Student from JSON
+
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
-      id: json['_id'] ?? '', // MongoDB uses '_id'
+      id: json['_id'] ?? '',
       name: json['name'] ?? 'Unknown',
       email: json['email'] ?? '',
       studentId: json['studentId'] ?? '',

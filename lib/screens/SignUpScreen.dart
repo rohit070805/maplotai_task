@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // 1. Import Provider
+import 'package:provider/provider.dart';
 import '../provider/auth_provider.dart';
- // 2. Import Auth Provider
+
 import '../utils/colors.dart';
 import 'LoginScreen.dart';
-import 'BottomNavigate.dart'; // 3. Import Dashboard
-
+import 'BottomNavigate.dart';
 class Signupscreen extends StatefulWidget {
   const Signupscreen({super.key});
 
@@ -21,7 +20,7 @@ class _SignupscreenState extends State<Signupscreen> {
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context);
-    // 4. Access the provider
+
     final authProvider = Provider.of<Authprovider>(context);
 
     return Container(
@@ -128,7 +127,7 @@ class _SignupscreenState extends State<Signupscreen> {
                                 ))
                           ],
                         ),
-                        // ... inside the build method ...
+
 
                         SizedBox(
                           height: 60,
@@ -146,12 +145,11 @@ class _SignupscreenState extends State<Signupscreen> {
                                   return;
                                 }
 
-                                // 2. Call Updated Sign Up Function
-                                // We now pass 'name' as the 3rd argument
+
                                 String? error = await authProvider.signUp(email, password, name);
 
                                 if (error == null) {
-                                  // Success
+
                                   if (context.mounted) {
                                     Navigator.pushReplacement(
                                         context,
@@ -159,7 +157,7 @@ class _SignupscreenState extends State<Signupscreen> {
                                             builder: (context) => const BottomNavigate()));
                                   }
                                 } else {
-                                  // Failure
+
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                         content: Text(error), backgroundColor: Colors.red));
